@@ -1,4 +1,4 @@
 .idea/
 .venv/
-*.txt
+PDF/*.txt
 PDF/img/
