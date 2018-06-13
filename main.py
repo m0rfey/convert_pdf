@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""
+author: Maksymchuk Maksym
+email: maksimchuk.mm@gmail.com
+"""
+__version__ = 0.1
 
 import os
 import math
@@ -8,17 +13,12 @@ from pytesseract import image_to_string, Output
 from PIL import Image as image
 
 
-PROJ_DIR = os.path.dirname(os.path.dirname(__file__))
-FILE_DIR = os.path.join(PROJ_DIR, 'PDF')
-
-print(FILE_DIR)
-
-
 class NewImege(Image):
+
     def brightness_contrast(self, brightness=0.0, contrast=0.0):
-        slope=math.tan((math.pi * (contrast/100.0+1.0)/4.0))
+        slope = math.tan((math.pi * (contrast/100.0+1.0)/4.0))
         if slope < 0.0:
-            slope=0.0
+            slope = 0.0
         intercept=brightness/100.0+((100-brightness)/200.0)*(1.0-slope)
         self.function("polynomial", [slope, intercept])
 
@@ -31,22 +31,25 @@ def get_files_by_path(prompt):
 def convert_pdf_to_img(path, *args):
     """
     This function converting pdf file to image files
-    :param path:
-    :param args:
+    :param path: string
+    :param args: set(files)
     :return:
     """
     for f in args:
+
         all_pages = Image(filename=f, resolution=500)
+
         for i, page in enumerate(all_pages.sequence):
+
             with NewImege(page) as img:
                 img.format = 'png'
-
                 img.background_color = Color('white')
                 # Changed brightness and contrast
                 img.brightness_contrast(-10.0, 0.0)
                 img.alpha_channel = 'remove'
 
                 image_filename = os.path.splitext(os.path.basename(f))[0]
+
                 image_filename = '{}-{}.png'.format(image_filename, i)
 
                 if not os.path.exists(os.path.join(path, 'img')):
@@ -62,7 +65,7 @@ def convert_pdf_to_img(path, *args):
 def convert_img_to_text(path):
     """
     This function reading text from image and save text to *.txt files
-    :param path:
+    :param path: string
     :return:
     """
     imgs = get_files_by_path(os.path.join(path, 'img'))
@@ -107,6 +110,6 @@ def main(path):
 
 
 if __name__ == '__main__':
-    print('Data sampling tool\n')
-    # path = input('Enter path: ')
-    main(FILE_DIR)
+    print('Starting program converting\n')
+    path = input('Enter path: ')
+    main(path)
