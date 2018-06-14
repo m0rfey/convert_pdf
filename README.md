@@ -12,6 +12,7 @@ $ pyvenv .venv
 $ source .venv/bin/activate
 $ (.venv)/ pip install -r requirements.txt
 $ sudo cp -r teseractTestdata/* /usr/share/tesseract-ocr/tessdata
+$ (.venv)/python main.py
 ```
 
 
