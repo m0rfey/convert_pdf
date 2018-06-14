@@ -6,7 +6,9 @@ $ git clone https://github.com/maximchuk/convert_pdf.git
 
 ### Ubuntu:
 ```sh
-$ sudo apt-get install python3-venvr
+$ sudo apt install python3-venv
+$ sudo apt install tesseract-ocr
+$ sudo apt install libtesseract-dev
 $ cd conver_pdf/
 $ pyvenv .venv
 $ source .venv/bin/activate
@@ -18,3 +20,7 @@ $ sudo cp -r teseractTestdata/* /usr/share/tesseract-ocr/tessdata
 ### Windows:
 
 https://github.com/tesseract-ocr/tesseract/wiki/Downloads
+
+### MacOs:
+
+https://github.com/tesseract-ocr/tesseract/wiki
